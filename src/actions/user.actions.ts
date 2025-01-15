@@ -7,7 +7,6 @@ export const syncUser = async () =>{
     try {
         const {userId} = await auth()
         const user = await currentUser()
-        console.log(user , "this is the user that i got")
         if(!user || !userId) return ;
 
         // check if user lrady exists
@@ -33,3 +32,30 @@ export const syncUser = async () =>{
         console.log("Error in sync user" , error)
     }
 }
+
+export async function getUserByClerkId(clerkId : string) {
+    return prisma.user.findUnique({
+        where : {
+            clerkId ,
+        },
+        include : {
+            _count : {
+                select : {
+                    followers : true,
+                    following : true,
+                    posts : true 
+                }
+            }
+        }
+    })
+}
+
+export async function getDbUserId () {
+    const {userId : clerkId} = await auth()
+    if(!clerkId) throw new Error("Unauthorized")
+
+    const User = await getUserByClerkId(clerkId)
+    if(!User) throw new Error("User is not found")
+    
+    return User.id
+    }

@@ -21,6 +21,7 @@ import React from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 
 export default function RootLayout({
   children,
@@ -45,14 +46,14 @@ export default function RootLayout({
                <main className="py-8">
                 {/* container to center the screen */}
                     <div className="max-w-7xl mx-auto px-4">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-6 ">
                               {/* this is the sidebar where we will have the profile and the things */}
                               {/* we dont need this in the bigger screens  */}
                               <div className="hidden lg:block lg:col-span-3">
-                                  Sidebar
+                                  <Sidebar/>
                               </div>
                               {/* this is the content main thing */}
-                              <div className="lg:col-span-9">
+                              <div className="lg:col-span-9 lg:ml-10 ">
                                   {children}
                               </div>
                         </div>
