@@ -2,36 +2,60 @@
 // we need some sought of interactivity over here so 
 //that is why we are making this a client component
 import axios from "axios"
-import React, { useState } from 'react'
-import { Card, CardContent, CardFooter, CardHeader } from './ui/card'
+import React, { useEffect, useState } from 'react'
+import { Card, CardContent, CardFooter } from './ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
-import { ImageIcon, ImagesIcon, Loader2Icon, SendIcon } from 'lucide-react'
-import { getDbUserId } from "@/actions/user.actions"
+import { ImageIcon , Loader2Icon, SendIcon } from 'lucide-react'
+import { useToast } from "@/hooks/use-toast"
+import { getTheUser, getTheUserInSession } from "@/actions/user.actions"
+import { currentUser } from "@clerk/nextjs/server"
 
 export function CreatePost() {
     const [message , setMessage] = useState('')
     const [isPosting , setIsPosting] = useState(false)
+    const [userImage , setUserImage] = useState("")
     const [showImageUpload , setShowImageUpload] = useState(false)
-    const userId = getDbUserId()
-    const handleSubmit =async () => {
+    const [imageUrl , setImageUrl] = useState('www.github.com') 
+    const {toast} = useToast()
+    // this useEffect exist such that the data is fetched to get the image 
+    useEffect( ()=>{
+        async function findImageAndSetImage () {
+            const data = await getTheUser()  
+            console.log(data)      
+            setUserImage(data.image || "ssss")
+        }
+        findImageAndSetImage()
+    },[])
+    const handleSubmit = async () => {
         if (!message.trim()) return 
-        setIsPosting(true) 
+        setIsPosting(true)  
         try {
             console.log(message)
-            await axios.post(`http://localhost:3000/api/user/${userId}/message` , message)  
+               
+            const result = await axios.post(`http://localhost:3000/api/user/message` , { message , imageUrl  })  
+            if (result.status == 200) {
+                // trying to reset our form 
+                setMessage("")
+                setImageUrl("");
+                setShowImageUpload(false);
+                toast({
+                    title: "Succesfull",
+                    description: "You have posted !!",
+                })
+            }
         } catch (error) {
             console.error(error )            
         }
-    } 
+    }
     return (    
 
     <div>
         <Card >
             <CardContent className='flex gap-3 p-6 flex-row '>
             <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                <AvatarImage src={userImage} alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <Textarea 

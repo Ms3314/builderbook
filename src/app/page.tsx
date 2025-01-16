@@ -1,3 +1,4 @@
+import { SuggestedUsers } from "../components/SuggestedUsers.tsx";
 import { CreatePost } from "../components/CreatePost.tsx";  
 import { Card, CardTitle } from "@/components/ui/card";
 import { currentUser } from "@clerk/nextjs/server";
@@ -12,6 +13,7 @@ export default async  function Home() {
         <Card >
           <CardTitle className="p-5">
             <h2>Who to follow</h2>
+            <SuggestedUsers/>
           </CardTitle>
         </Card>
         </div>

@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getDbUserId } from '@/actions/user.actions';
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+// this function is used to get the data of the current user 
+export async function GET() {
   // const id  = await  params.id;
-  const { id } = await params;
-  console.log(id)
+  const id = await getDbUserId()
   console.log("we have been called")
   // console.log(id , "the id that is send from the client")
   const data = await prisma.user.findUnique({
     where : {
-      clerkId : id ,
+      id  ,
     } ,
     include : {
      followers : true ,
