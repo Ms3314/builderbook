@@ -9,8 +9,7 @@ import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { ImageIcon , Loader2Icon, SendIcon } from 'lucide-react'
 import { useToast } from "@/hooks/use-toast"
-import { getTheUser, getTheUserInSession } from "@/actions/user.actions"
-import { currentUser } from "@clerk/nextjs/server"
+import { getTheUser } from "@/actions/user.actions"
 
 export function CreatePost() {
     const [message , setMessage] = useState('')

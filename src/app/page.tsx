@@ -10,12 +10,14 @@ export default async  function Home() {
         {/*  so in small screes we are using grid-1 so that everything is propper in vertical direction */}
         <div className="lg:col-span-6"> { user ? <CreatePost/> : null} </div>
         <div className="hidden lg:block lg:col-span-4 sticky top-20">
-        <Card >
-          <CardTitle className="p-5">
-            <h2>Who to follow</h2>
-            <SuggestedUsers/>
-          </CardTitle>
-        </Card>
+        {user ? <SuggestedUsers/> : 
+          (
+            <Card>
+              
+            </Card>
+          )
+        }
+        
         </div>
     </div>
     </>

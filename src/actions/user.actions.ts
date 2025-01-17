@@ -13,7 +13,6 @@ export const syncUser = async () =>{
         const existingUser = await prisma.user.findUnique({
             where: {
                 clerkId : userId ,
-                
             } , 
         })
         if (existingUser) return existingUser ; 
@@ -21,7 +20,7 @@ export const syncUser = async () =>{
         const dbUser = await prisma.user.create({
             data : {
                 clerkId : userId || "" ,
-                name : `${user.firstName || ""} ${user.lastName || ""}` ,
+                name : `${user.firstName || ""} ${user.lastName || ""} ${(!user.firstName && !user.lastName ) ? user.username ?? user.emailAddresses[0].emailAddress.split("@")[0] : null}`  ,
                 username : user.username ?? user.emailAddresses[0].emailAddress.split("@")[0] ,
                 email : user.emailAddresses[0].emailAddress ,
                 image : user.imageUrl
@@ -54,11 +53,11 @@ export async function getUserByClerkId(clerkId : string) {
  
 export async function getDbUserId () {
     const {userId : clerkId} = await auth()
+    console.log(clerkId , "this is it ????")
     if(!clerkId) throw new Error("Unauthorized")
 
     const User = await getUserByClerkId(clerkId)
     if(!User) throw new Error("User is not found")
-    
     return User.id
 }
 export async function getTheUser () {

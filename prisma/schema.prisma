@@ -79,7 +79,7 @@ model Follows {
   followerId String // jo banda follow karra like who is doing the operation
   followingId String  // the person he is following to 
   createdAt DateTime @default(now())   // member since 2020 
-
+  
   follower User @relation("follower" , fields: [followerId] , references: [id] , onDelete: Cascade)
   following User @relation( "following", fields: [followingId] , references: [id] , onDelete: Cascade)
 
