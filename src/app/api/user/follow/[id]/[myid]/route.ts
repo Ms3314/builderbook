@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function DELETE (request: Request , params : {params : string }) {
     try {
         // @ts-expect-error-SHUSHHHHH
-        const { id, myid } =  (params.params);
+        const { id, myid } = await (params.params);
         console.log(id, myid, "the params");
         // console.log(searchParams , "these are the search params")
         // const id = searchParams.get("id");

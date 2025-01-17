@@ -29,7 +29,7 @@ export async function POST(request: Request) {
         return NextResponse.json({
             success : false ,
             message : "Follow not fount"
-        },{status : 402})
+        },{status : 200})
     }
   } catch (error) {
     console.error("Error creating follow:", error);

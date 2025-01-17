@@ -26,11 +26,10 @@ function FollowButtonClient({id , myid} : {id:string , myid : string}) {
         console.log("use efffect is running ")
         async function doesfollowExist () {
             const response = await axios.post("http://localhost:3000/api/user/follow-exist" , {id , myid} )
-            console.log(response.status , "the status for deos this exist or not")
-            if (response.status == 200) {
-                setFollowExist(true)
-            }
-            else if (response.status == 402) {
+            console.log(response , "the status for deos this exist or not")
+            if (response.data.success == true) {
+                setFollowExist(true) 
+            } else  {
                 setFollowExist(false)
             }
         }
