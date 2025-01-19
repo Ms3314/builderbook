@@ -28,8 +28,8 @@ async function Sidebar() {
     const data = await getUserByClerkId(authUser.id)
     console.log(data)
     return (
-        <div>
-          <Card className="w-[350px]">
+        <div className='mb-5'>
+          <Card className="">
             <CardHeader>
               <div className="text-white flex flex-col gap-2 justify-center items-center">
                 <Image

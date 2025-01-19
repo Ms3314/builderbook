@@ -69,7 +69,7 @@ function FollowButtonClient({id , myid} : {id:string , myid : string}) {
                 <DeleteComponent button={"Followed "} handleSubmit={handleUnfollow} title={"Do you want to Unfollow"} description={"hlleeeluja"}/>
             ) :   
             (
-            <Button className="w-full" onClick={handleFollow}>
+            <Button className="w-24" onClick={handleFollow}>
                 Follow
             </Button>
         )}
@@ -83,7 +83,7 @@ function DeleteComponent({button , handleSubmit , title , description} : {button
         <AlertDialogTrigger >
             <Button 
                 variant="secondary" 
-                className="transition-opacity duration-200 hover:bg-red-800 opacity-100 group-hover:opacity-0"
+                className="transition-opacity w-24 duration-200 hover:bg-red-800 opacity-100 group-hover:opacity-0"
             >
                 {button}
             </Button>

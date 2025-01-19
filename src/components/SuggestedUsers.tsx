@@ -14,8 +14,8 @@ export async function SuggestedUsers  () {
 
     return (
     <Card className="p-3 flex-col items-center justify-center">
-    <h1 className=" mb-5 font-semibold self-center ml-20 text-xl">People to Follow</h1>
-    <div className="flex flex-col gap-5">
+    <h1 className=" mb-5 font-bold pl-3 text-xl">Who to Follow</h1>
+    <div className="flex flex-col gap-3">
         {
         // @ts-expect-error-shusshh
         content.map((data , index)=>(

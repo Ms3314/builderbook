@@ -51,11 +51,11 @@ export default function RootLayout({
                         <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-6 ">
                               {/* this is the sidebar where we will have the profile and the things */}
                               {/* we dont need this in the bigger screens  */}
-                              <div className="hidden lg:block lg:col-span-3">
+                              {/* <div className="hidden  lg:col-span-3">
                                   <Sidebar/>
-                              </div>
+                              </div> */}
                               {/* this is the content main thing */}
-                              <div className="lg:col-span-9 lg:ml-10 ">
+                              <div className="lg:col-span-12 lg:ml-10 ">
                                   {children}
                               </div>
                               <Toaster />
