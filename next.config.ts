@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**", // Adjust if you need to be more specific
       },
+      {
+        protocol: "https",
+        hostname: "unsplash.com",
+        port: "",
+        pathname: "/**", // Adjust if you need to be more specific
+      },
     ],
   },
 };
