@@ -3,20 +3,21 @@
 //that is why we are making this a client component
 import axios from "axios"
 import React, { useEffect, useState } from 'react'
-import { Card, CardContent, CardFooter } from './ui/card'
+import { Card, CardContent, CardDescription, CardFooter } from './ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
-import { ImageIcon , Loader2Icon, SendIcon } from 'lucide-react'
+import { ImageIcon , Loader2, Loader2Icon, SendIcon } from 'lucide-react'
 import { useToast } from "@/hooks/use-toast"
 import { getTheUser } from "@/actions/user.actions"
+import ImageButton from "./UploaderButton"
 
 export function CreatePost() {
     const [message , setMessage] = useState('')
     const [isPosting , setIsPosting] = useState(false)
     const [userImage , setUserImage] = useState("")
     const [showImageUpload , setShowImageUpload] = useState(false)
-    const [imageUrl , setImageUrl] = useState('www.github.com') 
+    const [imageUrl , setImageUrl] = useState('') 
     const {toast} = useToast()
     // this useEffect exist such that the data is fetched to get the image 
     useEffect( ()=>{
@@ -48,6 +49,11 @@ export function CreatePost() {
             console.error(error )            
         }
     }
+    
+    function handleDeleleteImage () {
+        
+    }
+
     return (    
 
     <div>
@@ -57,24 +63,38 @@ export function CreatePost() {
                 <AvatarImage src={userImage} alt="@shadcn" />
                 <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <Textarea 
-                placeholder='What is in your mind ?'
-                className='min-h-[100px] resize-none border-none text-base font-visible:ring-0 '
-                value={message}
-                onChange={(e)=>setMessage(e.target.value)}
-                disabled={isPosting}
-            />
-            </CardContent>
-            <CardFooter className='flex flex-row justify-between p-4 items-center'>
-                    <Button
-                    variant="ghost"
-                    className=' text-muted-foreground hover:text-primary'
+                <Textarea 
+                    placeholder='What is in your mind ?'
+                    className='min-h-[100px] resize-none border-none text-base font-visible:ring-0 '
+                    value={message}
+                    onChange={(e)=>setMessage(e.target.value)}
                     disabled={isPosting}
-                    onClick={()=>setShowImageUpload(!showImageUpload)}
-                    >
-                    <ImageIcon className='size-4 mr-2'/>
-                    Photo    
-                </Button>
+                />
+                {/* {
+                    imageUrl != "" ? <img src={imageUrl} className="w-full"/> : null
+
+                } */}
+                    {/* 
+                    <p>{JSON.stringify(imageUrl)}</p>
+                    {
+                        imageUrl != "" ? <img src={imageUrl} className="w-full"/> : null
+                    } */}
+            </CardContent>
+            <CardDescription className={`flex flex-col justify-center items-center relative ${imageUrl == "" ? " hidden " : " "}`}>
+                <img className={`w-[90%] p-2 rounded `} src={imageUrl} width={100} alt="some detaisl" height={100} />
+                <button onClick={handleDeleleteImage} className="bg-red-900  text-white p-2 text-2xl font-bold w-10 h-10  rounded-full absolute top-5 right-20 "></button>    
+                {
+                        showImageUpload && <Loader2 className="spin-in-2"/>
+                    }
+                {/* {
+                    imageUrl != "" ? <img  className="w-full"/> : null
+
+                } */}
+            </CardDescription>
+            <CardFooter className='flex flex-row justify-between p-4 items-center'>
+                <ImageButton  setLoader={setShowImageUpload} setImage={setImageUrl}/>
+                {/* <ImageIcon className='size-4 mr-2'/>
+                Photo     */}
                 <Button 
                     onClick={handleSubmit}
                     disabled={!message.trim || isPosting}
